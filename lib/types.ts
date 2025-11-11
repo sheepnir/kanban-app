@@ -3,6 +3,7 @@ export interface Card {
   title: string;
   description?: string;
   notes?: string;
+  aiPrompt?: string;
   createdAt: string;
   updatedAt: string;
 }

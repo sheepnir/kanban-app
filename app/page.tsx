@@ -193,6 +193,57 @@ export default function Home() {
     }));
   };
 
+  const handleGeneratePrompt = async (cardId: string): Promise<string | null> => {
+    if (!selectedCard) return null;
+
+    try {
+      const response = await fetch("/api/generate-prompt", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: selectedCard.card.title,
+          description: selectedCard.card.description,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        console.error("Error:", error.error);
+        return null;
+      }
+
+      const data = await response.json();
+      const generatedPrompt = data.prompt;
+
+      // Update the card with the generated prompt
+      setBoard((prevBoard) => {
+        const newBoard = JSON.parse(JSON.stringify(prevBoard)) as Board;
+        const columnIndex = newBoard.columns.findIndex(
+          (c) => c.id === selectedCard.columnId
+        );
+        if (columnIndex !== -1) {
+          const cardIndex = newBoard.columns[columnIndex].cards.findIndex(
+            (c) => c.id === cardId
+          );
+          if (cardIndex !== -1) {
+            newBoard.columns[columnIndex].cards[cardIndex].aiPrompt =
+              generatedPrompt;
+            newBoard.columns[columnIndex].cards[cardIndex].updatedAt =
+              new Date().toISOString();
+          }
+        }
+        return newBoard;
+      });
+
+      return generatedPrompt;
+    } catch (error) {
+      console.error("Error generating prompt:", error);
+      return null;
+    }
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8">
       <div className="max-w-7xl mx-auto">
@@ -243,6 +294,7 @@ export default function Home() {
           onClose={() => setSelectedCard(null)}
           onUpdate={handleUpdateCard}
           onDelete={() => handleDeleteCard(selectedCard.columnId, selectedCard.card.id)}
+          onGeneratePrompt={handleGeneratePrompt}
         />
       )}
     </main>
