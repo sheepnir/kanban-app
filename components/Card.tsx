@@ -31,6 +31,11 @@ export default function Card({ card, columnId, onSelect }: CardProps) {
 
   const [isHovered, setIsHovered] = React.useState(false);
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onSelect(columnId, card);
+  };
+
   return (
     <motion.div
       ref={setNodeRef}
@@ -50,7 +55,7 @@ export default function Card({ card, columnId, onSelect }: CardProps) {
       }`}
     >
       <div
-        onClick={() => onSelect(columnId, card)}
+        onClick={handleCardClick}
         className="cursor-pointer"
         role="button"
         tabIndex={0}
