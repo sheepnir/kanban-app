@@ -43,13 +43,18 @@ export default function Card({ card, columnId, onSelect }: CardProps) {
       whileHover={{ scale: 1.02, y: -4 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => onSelect(columnId, card)}
       {...attributes}
       {...listeners}
       className={`bg-white rounded-xl p-4 cursor-grab active:cursor-grabbing shadow-md hover:shadow-xl transition-all duration-200 ${
         isDragging ? "ring-2 ring-primary-500 opacity-90" : ""
       }`}
     >
+      <div
+        onClick={() => onSelect(columnId, card)}
+        className="cursor-pointer"
+        role="button"
+        tabIndex={0}
+      >
       <div className="flex items-start justify-between gap-2 mb-2">
         <h3 className="font-semibold text-slate-900 flex-1 line-clamp-2 text-sm">
           {card.title}
@@ -68,6 +73,7 @@ export default function Card({ card, columnId, onSelect }: CardProps) {
           <span>Notes</span>
         </div>
       )}
+      </div>
     </motion.div>
   );
 }
