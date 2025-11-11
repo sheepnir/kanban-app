@@ -78,8 +78,8 @@ export default function CardDetailModal({
     return (
       <Modal isOpen={true} onClose={() => setShowDeleteConfirm(false)}>
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-white">Delete Card?</h2>
-          <p className="text-slate-300">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Delete Card?</h2>
+          <p className="text-slate-600 dark:text-slate-300">
             Are you sure you want to delete this card? This action cannot be undone.
           </p>
           <div className="flex gap-2 justify-end pt-4">
@@ -102,16 +102,16 @@ export default function CardDetailModal({
     <Modal isOpen={true} onClose={onClose}>
       {!isEditing ? (
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-white break-words">
+          <h2 className="text-2xl font-semibold text-slate-900 dark:text-white break-words">
             {title}
           </h2>
 
           {description && (
             <div>
-              <h3 className="text-sm font-medium text-slate-300 mb-2">
+              <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Description
               </h3>
-              <p className="text-slate-400 whitespace-pre-wrap break-words">
+              <p className="text-slate-600 dark:text-slate-400 whitespace-pre-wrap break-words">
                 {description}
               </p>
             </div>
@@ -119,10 +119,10 @@ export default function CardDetailModal({
 
           {notes && (
             <div>
-              <h3 className="text-sm font-medium text-slate-300 mb-2">
+              <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Notes
               </h3>
-              <p className="text-slate-400 whitespace-pre-wrap break-words">
+              <p className="text-slate-600 dark:text-slate-400 whitespace-pre-wrap break-words">
                 {notes}
               </p>
             </div>
@@ -130,11 +130,11 @@ export default function CardDetailModal({
 
           {/* AI Prompt Section */}
           {onGeneratePrompt && (
-            <div className="border-t border-slate-700 pt-4">
+            <div className="border-t border-slate-200 dark:border-slate-700 pt-4">
               <div className="flex items-center justify-between mb-3">
                 <button
                   onClick={() => setShowPrompt(!showPrompt)}
-                  className="flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                  className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   {showPrompt ? (
                     <ChevronUp className="w-4 h-4" />
@@ -155,31 +155,31 @@ export default function CardDetailModal({
               </div>
 
               {showPrompt && generatedPrompt && (
-                <div className="bg-slate-700/30 rounded-lg p-3 mb-3">
+                <div className="bg-slate-100 dark:bg-slate-700/30 rounded-lg p-3 mb-3">
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <h3 className="text-xs font-medium text-slate-300 flex-1">
+                    <h3 className="text-xs font-medium text-slate-700 dark:text-slate-300 flex-1">
                       Generated Implementation Prompt
                     </h3>
                     <button
                       onClick={handleCopyPrompt}
-                      className="p-1.5 hover:bg-slate-600 rounded transition-colors flex-shrink-0"
+                      className="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-600 rounded transition-colors flex-shrink-0"
                       title="Copy prompt"
                     >
-                      <Copy className="w-3.5 h-3.5 text-slate-400 hover:text-white" />
+                      <Copy className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white" />
                     </button>
                   </div>
-                  <p className="text-xs text-slate-400 whitespace-pre-wrap break-words max-h-64 overflow-y-auto">
+                  <p className="text-xs text-slate-600 dark:text-slate-400 whitespace-pre-wrap break-words max-h-64 overflow-y-auto">
                     {generatedPrompt}
                   </p>
                   {copyFeedback && (
-                    <p className="text-xs text-green-400 mt-2">Copied to clipboard!</p>
+                    <p className="text-xs text-green-500 dark:text-green-400 mt-2">Copied to clipboard!</p>
                   )}
                 </div>
               )}
             </div>
           )}
 
-          <div className="text-xs text-slate-500 pt-4 border-t border-slate-700">
+          <div className="text-xs text-slate-600 dark:text-slate-500 pt-4 border-t border-slate-200 dark:border-slate-700">
             Created: {new Date(card.createdAt).toLocaleDateString()}
             {card.updatedAt !== card.createdAt && (
               <>
@@ -207,7 +207,7 @@ export default function CardDetailModal({
       ) : (
         <form onSubmit={handleUpdate} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-200 mb-1">
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
               Title
             </label>
             <Input
@@ -221,7 +221,7 @@ export default function CardDetailModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-200 mb-1">
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
               Description
             </label>
             <Textarea
@@ -233,7 +233,7 @@ export default function CardDetailModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-200 mb-1">
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
               Notes
             </label>
             <Textarea

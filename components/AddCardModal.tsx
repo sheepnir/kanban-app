@@ -42,7 +42,7 @@ export default function AddCardModal({
     <Modal isOpen={isOpen} onClose={handleClose}>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-slate-200 mb-1">
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
             Title
           </label>
           <Input
@@ -56,7 +56,7 @@ export default function AddCardModal({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-200 mb-1">
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
             Description
           </label>
           <Textarea
@@ -68,7 +68,7 @@ export default function AddCardModal({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-200 mb-1">
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
             Notes
           </label>
           <Textarea

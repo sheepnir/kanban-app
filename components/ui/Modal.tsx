@@ -37,18 +37,18 @@ function Modal({
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             onClick={(e) => e.stopPropagation()}
             className={cn(
-              "bg-slate-800 rounded-lg shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto",
+              "bg-white dark:bg-slate-800 rounded-lg shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto",
               className
             )}
           >
             {title && (
-              <div className="flex items-center justify-between p-6 border-b border-slate-700">
-                <h2 className="text-xl font-bold text-white">{title}</h2>
+              <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h2>
                 <button
                   onClick={onClose}
-                  className="p-1 hover:bg-slate-700 rounded-lg transition-colors"
+                  className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
                 >
-                  <X className="w-5 h-5 text-slate-300" />
+                  <X className="w-5 h-5 text-slate-600 dark:text-slate-300" />
                 </button>
               </div>
             )}

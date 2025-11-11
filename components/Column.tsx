@@ -32,13 +32,13 @@ export default function Column({ column, onAddCard, onSelectCard }: ColumnProps)
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
-      className="flex flex-col min-w-[360px] max-h-[calc(100vh-200px)] bg-gradient-to-b from-slate-800/60 to-slate-800/40 rounded-xl p-4 border border-slate-700/50 shadow-lg hover:shadow-xl transition-shadow duration-300"
+      className="flex flex-col min-w-[360px] max-h-[calc(100vh-200px)] bg-gradient-to-b from-slate-100/80 to-slate-50/80 dark:from-slate-800/60 dark:to-slate-800/40 rounded-xl p-4 border border-slate-200 dark:border-slate-700/50 shadow-lg hover:shadow-xl transition-shadow duration-300"
     >
       {/* Column Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <h2 className="text-lg font-semibold text-white">{column.title}</h2>
-          <span className="px-2 py-1 bg-slate-700/50 rounded text-sm text-slate-300 font-medium">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{column.title}</h2>
+          <span className="px-2 py-1 bg-slate-200 dark:bg-slate-700/50 rounded text-sm text-slate-700 dark:text-slate-300 font-medium">
             {column.cards.length}
           </span>
         </div>
@@ -64,11 +64,11 @@ export default function Column({ column, onAddCard, onSelectCard }: ColumnProps)
       </SortableContext>
 
       {/* Add Card Button */}
-      <div className="mt-4 pt-4 border-t border-slate-700/50">
+      <div className="mt-4 pt-4 border-t border-slate-300 dark:border-slate-700/50">
         <Button
           onClick={() => onAddCard(column.id)}
           variant="ghost"
-          className="w-full justify-start gap-2 text-slate-400 hover:text-white hover:bg-slate-700/30"
+          className="w-full justify-start gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700/30"
         >
           <Plus className="w-4 h-4" />
           Add Card

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   DndContext,
   closestCorners,
@@ -17,7 +17,7 @@ import Column from "@/components/Column";
 import AddCardModal from "@/components/AddCardModal";
 import CardDetailModal from "@/components/CardDetailModal";
 import { Button } from "@/components/ui/Button";
-import { Plus } from "lucide-react";
+import { Plus, Moon, Sun } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 
 const DEFAULT_BOARD: Board = {
@@ -51,6 +51,27 @@ export default function Home() {
     card: CardType;
   } | null>(null);
   const [cardToAddColumnId, setCardToAddColumnId] = useState<string>("");
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  // Apply theme on mount and when isDarkMode changes
+  useEffect(() => {
+    const htmlElement = document.documentElement;
+    if (isDarkMode) {
+      htmlElement.classList.add("dark");
+    } else {
+      htmlElement.classList.remove("dark");
+    }
+    // Save preference to localStorage
+    localStorage.setItem("theme-preference", isDarkMode ? "dark" : "light");
+  }, [isDarkMode]);
+
+  // Load theme preference from localStorage on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme-preference");
+    if (savedTheme === "light") {
+      setIsDarkMode(false);
+    }
+  }, []);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -245,21 +266,36 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-bold text-white mb-2">My Projects</h1>
-            <p className="text-slate-400">Organize your tasks with ease</p>
+            <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-2">My Projects</h1>
+            <p className="text-slate-600 dark:text-slate-400">Organize your tasks with ease</p>
           </div>
-          <Button
-            onClick={handleAddColumn}
-            className="flex items-center gap-2"
-          >
-            <Plus className="w-4 h-4" />
-            Add Column
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              variant="secondary"
+              size="sm"
+              className="flex items-center gap-2"
+              title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDarkMode ? (
+                <Sun className="w-4 h-4" />
+              ) : (
+                <Moon className="w-4 h-4" />
+              )}
+            </Button>
+            <Button
+              onClick={handleAddColumn}
+              className="flex items-center gap-2"
+            >
+              <Plus className="w-4 h-4" />
+              Add Column
+            </Button>
+          </div>
         </div>
 
         {/* Kanban Board */}
